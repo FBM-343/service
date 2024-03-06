@@ -12,7 +12,7 @@ import ro.unibuc.hello.service.HelloWorldService;
 
 @Controller
 public class HelloWorldController {
-
+    
     @Autowired
     private HelloWorldService helloWorldService;
 

@@ -17,6 +17,7 @@ public class HelloApplication {
 	private InformationRepository informationRepository;
 
 	public static void main(String[] args) {
+		//TODO
 		SpringApplication.run(HelloApplication.class, args);
 	}
 
