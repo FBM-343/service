@@ -9,6 +9,7 @@ import ro.unibuc.hello.data.VetEntity;
 
 import ro.unibuc.hello.data.PetRepository;
 import ro.unibuc.hello.data.VetRepository;
+import ro.unibuc.hello.dto.AppointmentDTO;
 
 import java.util.List;
 
@@ -47,13 +48,31 @@ public class AppointmentController {
         return appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
     }
 
-    @PutMapping("/{id}")
-    public AppointmentEntity updateAppointment(@PathVariable String id, @RequestBody AppointmentEntity appointmentDetails) {
-        AppointmentEntity appointment = appointmentRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
+    @PatchMapping("/{id}")
+    public AppointmentEntity updateAppointment(@PathVariable String id, @RequestBody AppointmentDTO appointmentDetails) {
+        AppointmentEntity existingAppointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
 
-        // Pot fi adăugate actualizări suplimentare aici
-        return appointmentRepository.save(appointment);
+        if (appointmentDetails.getAppointmentTime() != null) {
+            existingAppointment.setAppointmentTime(appointmentDetails.getAppointmentTime());
+        }
+        if (appointmentDetails.getReason() != null) {
+            existingAppointment.setReason(appointmentDetails.getReason());
+        }
+        if (appointmentDetails.getPetId() != null) {
+            PetEntity pet = petRepository.findById(appointmentDetails.getPetId())
+                    .orElseThrow(() -> new RuntimeException("Pet not found with id: " + appointmentDetails.getPetId()));
+            existingAppointment.setPet(pet);
+        }
+
+        if(appointmentDetails.getVetId() != null) {
+            VetEntity vet = vetRepository.findById(appointmentDetails.getVetId())
+                    .orElseThrow(() -> new RuntimeException("Vet not found with id: " + appointmentDetails.getVetId()));
+            existingAppointment.setVet(vet);
+        }
+
+        // Salvare în baza de date
+        return appointmentRepository.save(existingAppointment);
     }
 
     @DeleteMapping("/{id}")
