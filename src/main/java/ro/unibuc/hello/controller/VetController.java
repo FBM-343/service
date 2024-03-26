@@ -19,6 +19,7 @@ import ro.unibuc.hello.data.VetRepository;
 @RequestMapping("/vets")
 public class VetController {
     @Autowired
+    
     private VetRepository vetRepository;
 
     @PostMapping
