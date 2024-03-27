@@ -50,7 +50,7 @@ public class PetControllerTest {
                 .content(objectMapper.writeValueAsString(newPet)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(savedPet.getName()))
-                .andExpect(jsonPath("$.spcies").value(savedPet.getSpecies()));
+                .andExpect(jsonPath("$.species").value(savedPet.getSpecies()));
     }
 
     @Test
