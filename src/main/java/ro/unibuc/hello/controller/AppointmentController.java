@@ -3,12 +3,7 @@ package ro.unibuc.hello.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ro.unibuc.hello.data.AppointmentEntity;
-import ro.unibuc.hello.data.AppointmentRepository;
-import ro.unibuc.hello.data.PetEntity;
-import ro.unibuc.hello.data.VetEntity;
-
-import ro.unibuc.hello.data.PetRepository;
-import ro.unibuc.hello.data.VetRepository;
+import ro.unibuc.hello.service.AppointmentService;
 
 import java.util.List;
 
@@ -17,47 +12,30 @@ import java.util.List;
 public class AppointmentController {
 
     @Autowired
-    private AppointmentRepository appointmentRepository;
-
-    @Autowired
-    private PetRepository petRepository;
-
-    @Autowired
-    private VetRepository vetRepository;
+    private AppointmentService appointmentService;
 
     @PostMapping
     public AppointmentEntity createAppointment(@RequestBody AppointmentEntity appointment) {
-        PetEntity pet = petRepository.findById(appointment.getPet().getId())
-            .orElseThrow(() -> new RuntimeException("Pet not found with id: " + appointment.getPet().getId()));
-        VetEntity vet = vetRepository.findById(appointment.getVet().getId())
-            .orElseThrow(() -> new RuntimeException("Vet not found with id: " + appointment.getVet().getId()));
-
-        appointment.setPet(pet);
-        appointment.setVet(vet);
-        return appointmentRepository.save(appointment);
+        return appointmentService.createAppointment(appointment);
     }
 
     @GetMapping
     public List<AppointmentEntity> getAllAppointments() {
-        return appointmentRepository.findAll();
+        return appointmentService.getAllAppointments();
     }
 
     @GetMapping("/{id}")
     public AppointmentEntity getAppointmentById(@PathVariable String id) {
-        return appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
+        return appointmentService.getAppointmentById(id);
     }
 
     @PutMapping("/{id}")
     public AppointmentEntity updateAppointment(@PathVariable String id, @RequestBody AppointmentEntity appointmentDetails) {
-        AppointmentEntity appointment = appointmentRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
-
-        // Pot fi adăugate actualizări suplimentare aici
-        return appointmentRepository.save(appointment);
+        return appointmentService.updateAppointment(id, appointmentDetails);
     }
 
     @DeleteMapping("/{id}")
     public void deleteAppointment(@PathVariable String id) {
-        appointmentRepository.deleteById(id);
+        appointmentService.deleteAppointment(id);
     }
 }

@@ -3,7 +3,8 @@ package ro.unibuc.hello.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ro.unibuc.hello.data.PetEntity;
-import ro.unibuc.hello.data.PetRepository;
+import ro.unibuc.hello.service.PetService;
+
 import java.util.List;
 
 @RestController
@@ -11,33 +12,30 @@ import java.util.List;
 public class PetController {
 
     @Autowired
-    private PetRepository petRepository;
+    private PetService petService;
 
     @PostMapping
     public PetEntity createPet(@RequestBody PetEntity pet) {
-        return petRepository.save(pet);
+        return petService.createPet(pet);
     }
 
     @GetMapping
     public List<PetEntity> getAllPets() {
-        return petRepository.findAll();
+        return petService.getAllPets();
     }
 
     @GetMapping("/{id}")
     public PetEntity getPetById(@PathVariable String id) {
-        return petRepository.findById(id).orElseThrow(() -> new RuntimeException("Pet not found with id: " + id));
+        return petService.getPetById(id);
     }
 
     @PutMapping("/{id}")
     public PetEntity updatePet(@PathVariable String id, @RequestBody PetEntity petDetails) {
-        PetEntity pet = petRepository.findById(id).orElseThrow(() -> new RuntimeException("Pet not found with id: " + id));
-        pet.setName(petDetails.getName());
-        pet.setSpecies(petDetails.getSpecies());
-        return petRepository.save(pet);
+        return petService.updatePet(id, petDetails);
     }
 
     @DeleteMapping("/{id}")
     public void deletePet(@PathVariable String id) {
-        petRepository.deleteById(id);
+        petService.deletePet(id);
     }
 }
