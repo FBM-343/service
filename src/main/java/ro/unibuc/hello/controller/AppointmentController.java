@@ -3,6 +3,7 @@ package ro.unibuc.hello.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ro.unibuc.hello.data.AppointmentEntity;
+import ro.unibuc.hello.dto.AppointmentDTO;
 import ro.unibuc.hello.service.AppointmentService;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class AppointmentController {
         return appointmentService.getAppointmentById(id);
     }
 
-    @PutMapping("/{id}")
-    public AppointmentEntity updateAppointment(@PathVariable String id, @RequestBody AppointmentEntity appointmentDetails) {
+    @PatchMapping("/{id}")
+    public AppointmentEntity updateAppointment(@PathVariable String id, @RequestBody AppointmentDTO appointmentDetails) {
         return appointmentService.updateAppointment(id, appointmentDetails);
     }
 
