@@ -8,6 +8,7 @@ import ro.unibuc.hello.data.PetEntity;
 import ro.unibuc.hello.data.VetEntity;
 import ro.unibuc.hello.data.PetRepository;
 import ro.unibuc.hello.data.VetRepository;
+import ro.unibuc.hello.dto.AppointmentDTO;
 
 import java.util.List;
 
@@ -42,17 +43,26 @@ public class AppointmentService {
         return appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
     }
 
-    public AppointmentEntity updateAppointment(String id, AppointmentEntity appointmentDetails) {
+    public AppointmentEntity updateAppointment(String id, AppointmentDTO appointmentDetails) {
         AppointmentEntity appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
-    
-        // Here, you should update the appointment entity with new details.
-        // For example:
-        appointment.setPet(appointmentDetails.getPet());
-        appointment.setVet(appointmentDetails.getVet());
-        appointment.setAppointmentTime(appointmentDetails.getAppointmentTime());
-        appointment.setReason(appointmentDetails.getReason());
-    
+        
+        if (appointmentDetails.getAppointmentTime() != null) {
+            appointment.setAppointmentTime(appointmentDetails.getAppointmentTime());
+        }
+        if (appointmentDetails.getReason() != null) {
+            appointment.setReason(appointmentDetails.getReason());
+        }
+        if (appointmentDetails.getPetId() != null) {
+            PetEntity pet = petRepository.findById(appointmentDetails.getPetId())
+                    .orElseThrow(() -> new RuntimeException("Pet not found with id: " + appointmentDetails.getPetId()));
+            appointment.setPet(pet);
+        }
+        if (appointmentDetails.getVetId() != null) {
+            VetEntity vet = vetRepository.findById(appointmentDetails.getVetId())
+                    .orElseThrow(() -> new RuntimeException("Vet not found with id: " + appointmentDetails.getVetId()));
+            appointment.setVet(vet);
+        }
         return appointmentRepository.save(appointment);
     }
     
