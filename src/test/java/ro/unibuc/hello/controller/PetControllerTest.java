@@ -11,11 +11,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ro.unibuc.hello.data.PetEntity;
 import ro.unibuc.hello.data.PetRepository;
+import ro.unibuc.hello.service.PetService;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -24,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PetControllerTest {
 
     @Mock
-    private PetRepository petRepository;
+    private PetService petRepository;
 
     @InjectMocks
     private PetController petController;
@@ -43,7 +45,7 @@ public class PetControllerTest {
         PetEntity savedPet = new PetEntity("Mex", "Cat");
         savedPet.setId("1");
 
-        when(petRepository.save(any(PetEntity.class))).thenReturn(savedPet);
+        when(petRepository.createPet(any(PetEntity.class))).thenReturn(savedPet);
 
         mockMvc.perform(post("/pets")
                 .contentType("application/json")
@@ -60,7 +62,7 @@ public class PetControllerTest {
         PetEntity pet2 = new PetEntity("Mex", "Cat");
         pet2.setId("2");
 
-        when(petRepository.findAll()).thenReturn(Arrays.asList(pet1, pet2));
+        when(petRepository.getAllPets()).thenReturn(Arrays.asList(pet1, pet2));
 
         mockMvc.perform(get("/pets")
                 .contentType("application/json"))
@@ -73,7 +75,7 @@ public class PetControllerTest {
         PetEntity pet = new PetEntity("Rex", "Dog");
         pet.setId("1");
 
-        when(petRepository.findById("1")).thenReturn(Optional.of(pet));
+        when(petRepository.getPetById("1")).thenReturn(pet);
 
         mockMvc.perform(get("/pets/1")
                 .contentType("application/json"))
@@ -81,32 +83,31 @@ public class PetControllerTest {
                 .andExpect(jsonPath("$.name").value(pet.getName()));
     }
 
-    @Test
-    public void testUpdatePet() throws Exception {
-        PetEntity originalPet = new PetEntity("Rex", "Dog");
-        originalPet.setId("1");
+@Test
+public void testUpdatePet() throws Exception {
+    PetEntity originalPet = new PetEntity("Rex", "Dog");
+    originalPet.setId("1");
 
-        PetEntity updatedPet = new PetEntity("Mex", "Cat");
-        updatedPet.setId("1");
+    PetEntity updatedPet = new PetEntity("Mex", "Cat");
+    updatedPet.setId("1");
 
-        when(petRepository.findById("1")).thenReturn(Optional.of(originalPet));
-        when(petRepository.save(any(PetEntity.class))).thenReturn(updatedPet);
+    when(petRepository.updatePet(eq("1"), any(PetEntity.class))).thenReturn(updatedPet); // Modificare aici
 
-        mockMvc.perform(put("/pets/1")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(updatedPet)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.species").value("Cat"));
-    }
+    mockMvc.perform(put("/pets/1")
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(updatedPet)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.species").value("Cat"));
+}
 
     @Test
     public void testDeletePet() throws Exception {
-        doNothing().when(petRepository).deleteById("1");
+        doNothing().when(petRepository).deletePet("1");
 
         mockMvc.perform(delete("/pets/1")
                 .contentType("application/json"))
                 .andExpect(status().isOk());
 
-        verify(petRepository, times(1)).deleteById("1");
+        verify(petRepository, times(1)).deletePet("1");
     }
 }

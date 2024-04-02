@@ -29,8 +29,9 @@ public class PetService {
         PetEntity pet = petRepository.findById(id).orElseThrow(() -> new RuntimeException("Pet not found with id: " + id));
         pet.setName(petDetails.getName());
         pet.setSpecies(petDetails.getSpecies());
-        return petRepository.save(pet);
+        return petRepository.save(pet); // Returnează entitatea actualizată
     }
+    
 
     public void deletePet(String id) {
         petRepository.deleteById(id);

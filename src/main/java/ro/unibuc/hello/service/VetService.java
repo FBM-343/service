@@ -29,8 +29,9 @@ public class VetService {
         VetEntity vet = vetRepository.findById(id).orElseThrow(() -> new RuntimeException("Vet not found with id: " + id));
         vet.setName(vetDetails.getName());
         vet.setSpecialization(vetDetails.getSpecialization());
-        return vetRepository.save(vet);
+        return vetRepository.save(vet); // Returnează entitatea actualizată
     }
+    
 
     public void deleteVet(String id) {
         vetRepository.deleteById(id);

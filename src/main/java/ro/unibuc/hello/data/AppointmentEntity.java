@@ -3,6 +3,9 @@ package ro.unibuc.hello.data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 @Document
@@ -17,7 +20,9 @@ public class AppointmentEntity {
     @DBRef
     private VetEntity vet;
 
+   @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
     private LocalDateTime appointmentTime;
+    
     private String reason;
 
     public AppointmentEntity() {}

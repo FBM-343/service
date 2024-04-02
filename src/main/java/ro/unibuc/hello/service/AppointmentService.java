@@ -45,10 +45,17 @@ public class AppointmentService {
     public AppointmentEntity updateAppointment(String id, AppointmentEntity appointmentDetails) {
         AppointmentEntity appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
-
-        // Actualizări suplimentare aici
+    
+        // Here, you should update the appointment entity with new details.
+        // For example:
+        appointment.setPet(appointmentDetails.getPet());
+        appointment.setVet(appointmentDetails.getVet());
+        appointment.setAppointmentTime(appointmentDetails.getAppointmentTime());
+        appointment.setReason(appointmentDetails.getReason());
+    
         return appointmentRepository.save(appointment);
     }
+    
 
     public void deleteAppointment(String id) {
         appointmentRepository.deleteById(id);
