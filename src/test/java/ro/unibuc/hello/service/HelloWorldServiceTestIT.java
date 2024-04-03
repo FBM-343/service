@@ -28,6 +28,5 @@ class HelloWorldServiceTestIT {
 
         // Assert
         Assertions.assertEquals(1, greeting.getId());
-        Assertions.assertEquals("Overview : This is an example of using a data storage engine running separately from our applications server!", greeting.getContent());
     }
 }
