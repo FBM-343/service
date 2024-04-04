@@ -49,11 +49,12 @@ public class AppointmentControllerTest {
 
         @Test
         public void testCreateAppointment() throws Exception {
+                LocalDateTime now = LocalDateTime.now();
                 AppointmentEntity newAppointment = new AppointmentEntity(new PetEntity("Rex", "Dog"),
-                                new VetEntity("Dr. Smith", "Medicina veterinara interna"), LocalDateTime.now(),
+                                new VetEntity("Dr. Smith", "Medicina veterinara interna"), now,
                                 "Vaccinare");
                 AppointmentEntity savedAppointment = new AppointmentEntity(new PetEntity("Mex", "Cat"),
-                                new VetEntity("Dr. John", "Chirurgie veterinara"), LocalDateTime.now(), "Operatie");
+                                new VetEntity("Dr. John", "Chirurgie veterinara"), now, "Operatie");
                 savedAppointment.setId("1");
 
                 when(appointmentService.createAppointment(any(AppointmentEntity.class))).thenReturn(savedAppointment);
