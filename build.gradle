@@ -53,7 +53,8 @@ dependencyManagement {
 	}
 }
 
-test {
+test { 
+	testLogging.showStandardStreams=true
 	outputs.dir snippetsDir
 	useJUnitPlatform {
 		excludeTags ("IT", "E2E")
