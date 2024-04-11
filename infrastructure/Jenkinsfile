@@ -46,7 +46,7 @@ pipeline {
 
         stage('Deploy') {
             steps{
-                sh "IMAGE_TAG=${env.IMAGE_TAG} DOCKER_USERNAME=${DOCKER_USERNAME} docker-compose up -d hello mongo"
+                sh "IMAGE_TAG=${env.IMAGE_TAG} DOCKER_USERNAME=${DOCKER_USERNAME} docker compose up -d hello mongo"
             }
         }
 
