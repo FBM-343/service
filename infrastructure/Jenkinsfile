@@ -4,7 +4,6 @@ pipeline {
         DOCKER_PASSWORD = credentials("docker_password")
         DOCKER_USERNAME = credentials("docker_username")
         GITHUB_TOKEN = credentials("github_token")
-        GITHUB_USERNAME = credentials("github_username")
     }
 
     stages {
@@ -40,7 +39,7 @@ pipeline {
             steps {
                 script {
                     sh "git tag ${env.IMAGE_TAG}"
-                    sh "git push https://$GITHUB_TOKEN@github.com/$GITHUB_USERNAME/service.git ${env.IMAGE_TAG}"
+                    sh "git push https://$GITHUB_TOKEN@github.com/FBM-343/service.git ${env.IMAGE_TAG}"
                 }
             }
         }
