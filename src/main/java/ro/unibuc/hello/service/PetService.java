@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import ro.unibuc.hello.data.PetEntity;
 import ro.unibuc.hello.data.PetRepository;
 
+import io.micrometer.core.instrument.MeterRegistry;
+
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class PetService {
@@ -13,11 +16,17 @@ public class PetService {
     @Autowired
     private PetRepository petRepository;
 
+    @Autowired
+    private MeterRegistry metricsRegistry;
+
+    private final AtomicLong counter = new AtomicLong();
+
     public PetEntity createPet(PetEntity pet) {
         return petRepository.save(pet);
     }
 
     public List<PetEntity> getAllPets() {
+        metricsRegistry.counter("getAllPets_number", "endpoint", "pets").increment(counter.incrementAndGet());
         return petRepository.findAll();
     }
 

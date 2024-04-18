@@ -6,6 +6,9 @@ import ro.unibuc.hello.data.AppointmentEntity;
 import ro.unibuc.hello.dto.AppointmentDTO;
 import ro.unibuc.hello.service.AppointmentService;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
+
 import java.util.List;
 
 @RestController
@@ -19,7 +22,8 @@ public class AppointmentController {
     public AppointmentEntity createAppointment(@RequestBody AppointmentEntity appointment) {
         return appointmentService.createAppointment(appointment);
     }
-
+    @Timed(value = "appointments.time", description = "Time taken to return all appointments")
+    @Counted(value = "appointments.count", description = "Times all appointments were returned")
     @GetMapping
     public List<AppointmentEntity> getAllAppointments() {
         return appointmentService.getAllAppointments();

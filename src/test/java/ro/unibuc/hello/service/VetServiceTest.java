@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import ro.unibuc.hello.data.VetEntity;
 import ro.unibuc.hello.data.VetRepository;
 
@@ -16,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -26,6 +31,9 @@ class VetServiceTest {
 
     @InjectMocks
     private VetService vetService;
+
+    @Mock
+    private MeterRegistry metricsRegistry;
 
     @Test
     void test_createVet() {
@@ -43,6 +51,10 @@ class VetServiceTest {
     void test_getAllVets() {
         List<VetEntity> vets = Arrays.asList(new VetEntity("Dr. Smith", "Neurology"), new VetEntity("Dr. Jones", "Surgery"));
         when(mockVetRepository.findAll()).thenReturn(vets);
+        
+        Counter counterMock = Mockito.mock(Counter.class);
+        when(metricsRegistry.counter(anyString(), anyString(), anyString())).thenReturn(counterMock);
+        doNothing().when(counterMock).increment();
 
         List<VetEntity> result = vetService.getAllVets();
 

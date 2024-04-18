@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import ro.unibuc.hello.data.VetEntity;
 import ro.unibuc.hello.service.VetService;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
+
 import java.util.List;
 
 @RestController
@@ -19,6 +22,8 @@ public class VetController {
         return vetService.createVet(vet);
     }
 
+    @Timed(value = "vets.time", description = "Time taken to return all vets")
+    @Counted(value = "vets.count", description = "Times all vets were returned")
     @GetMapping
     public List<VetEntity> getAllVets() {
         return vetService.getAllVets();

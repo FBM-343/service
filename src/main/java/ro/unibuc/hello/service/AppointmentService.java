@@ -10,6 +10,9 @@ import ro.unibuc.hello.data.PetRepository;
 import ro.unibuc.hello.data.VetRepository;
 import ro.unibuc.hello.dto.AppointmentDTO;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import java.util.concurrent.atomic.AtomicLong;
+
 import java.util.List;
 
 @Service
@@ -24,6 +27,11 @@ public class AppointmentService {
     @Autowired
     private VetRepository vetRepository;
 
+    @Autowired
+    private MeterRegistry metricsRegistry;
+
+    private final AtomicLong counter = new AtomicLong();
+
     public AppointmentEntity createAppointment(AppointmentEntity appointment) {
         PetEntity pet = petRepository.findById(appointment.getPet().getId())
                 .orElseThrow(() -> new RuntimeException("Pet not found with id: " + appointment.getPet().getId()));
@@ -36,6 +44,7 @@ public class AppointmentService {
     }
 
     public List<AppointmentEntity> getAllAppointments() {
+        metricsRegistry.counter("getAllAppointments_number", "endpoint", "appointments").increment(counter.incrementAndGet());
         return appointmentRepository.findAll();
     }
 

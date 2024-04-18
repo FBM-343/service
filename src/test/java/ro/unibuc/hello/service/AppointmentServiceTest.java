@@ -1,10 +1,14 @@
 package ro.unibuc.hello.service;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import io.cucumber.java.bs.A;
@@ -22,6 +26,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -38,6 +44,9 @@ class AppointmentServiceTest {
 
     @InjectMocks
     private AppointmentService appointmentService;
+
+    @Mock
+    private MeterRegistry metricsRegistry;
 
     @Test
     void test_createAppointment() {
@@ -73,6 +82,10 @@ class AppointmentServiceTest {
                         LocalDateTime.now(), "Vaccination"));
         when(mockAppointmentRepository.findAll()).thenReturn(appointments);
 
+        Counter counterMock = Mockito.mock(Counter.class);
+        when(metricsRegistry.counter(anyString(), anyString(), anyString())).thenReturn(counterMock);
+        doNothing().when(counterMock).increment();
+        
         List<AppointmentEntity> result = appointmentService.getAllAppointments();
 
         Assertions.assertEquals(2, result.size());
