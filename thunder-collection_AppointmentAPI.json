@@ -1,0 +1,52 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "AppointmentAPI",
+    "collectionId": "052f027e-8f1a-455d-91ad-c52ecd73fa8f",
+    "dateExported": "2024-05-15T12:50:35.976Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "6618dc45-a2aa-4391-8f54-61d89dbe0a23",
+            "colId": "052f027e-8f1a-455d-91ad-c52ecd73fa8f",
+            "containerId": "",
+            "name": "AllAppointments",
+            "url": "http://localhost:8080/appointments",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-05-15T12:45:11.251Z",
+            "modified": "2024-05-15T12:45:51.594Z",
+            "headers": []
+        },
+        {
+            "_id": "c5328474-721e-4edd-a44e-46f5ccae10b1",
+            "colId": "052f027e-8f1a-455d-91ad-c52ecd73fa8f",
+            "containerId": "",
+            "name": "GetAppointment",
+            "url": "http://localhost:8080/appointments/66449d7de407876c44c17e41",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-05-15T12:46:30.567Z",
+            "modified": "2024-05-15T12:46:37.915Z",
+            "headers": []
+        },
+        {
+            "_id": "470a2aeb-9db1-49af-a2b4-d78f8be8c6c2",
+            "colId": "052f027e-8f1a-455d-91ad-c52ecd73fa8f",
+            "containerId": "",
+            "name": "UpdateAppointment",
+            "url": "http://localhost:8080/appointments/66449d7de407876c44c17e41",
+            "method": "PATCH",
+            "sortNum": 30000,
+            "created": "2024-05-15T12:47:19.407Z",
+            "modified": "2024-05-15T12:49:42.919Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{{\"petId\":66449d7de407876c44c17e3d}}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "Ga0-jeBfEMer-8Y40JY3ZWG39yeVcj5J849uLS2YyMGM-_9pvA3XZAABGyFQ8CPTJ9xXo0E9Jju7koyyyOouwA"
+}
