@@ -1,0 +1,52 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "VetAPI",
+    "collectionId": "6e967f52-cdf9-4276-ba63-c8f4349e46d6",
+    "dateExported": "2024-05-15T12:31:06.095Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "7b9b9d46-e510-4260-b309-a4e76a7f541a",
+            "colId": "6e967f52-cdf9-4276-ba63-c8f4349e46d6",
+            "containerId": "",
+            "name": "AllVets",
+            "url": "http://localhost:8080/vets",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-05-15T12:18:25.439Z",
+            "modified": "2024-05-15T12:18:46.308Z",
+            "headers": []
+        },
+        {
+            "_id": "e083318c-8d36-4372-a5b5-afd9d4bbed0b",
+            "colId": "6e967f52-cdf9-4276-ba63-c8f4349e46d6",
+            "containerId": "",
+            "name": "GetVet",
+            "url": "http://localhost:8080/vets/66449d7de407876c44c17e40",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-05-15T12:19:40.090Z",
+            "modified": "2024-05-15T12:19:54.886Z",
+            "headers": []
+        },
+        {
+            "_id": "325e4437-b199-46ed-ae1d-f2c1c5337ce2",
+            "colId": "6e967f52-cdf9-4276-ba63-c8f4349e46d6",
+            "containerId": "",
+            "name": "UpdateVet",
+            "url": "http://localhost:8080/vets/66449d7de407876c44c17e40",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-05-15T12:20:10.976Z",
+            "modified": "2024-05-15T12:21:53.609Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"name\": \"Ana\",\n  \"specialization\": \"Neurolog\"}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "Tq44SS35ua67rH-5rHHt7rJC7401UDu7koJMzFXmhpMWcyNbBnySui17lAJYH9Mj5aMG8Hznk8B0yEvCpqQojA"
+}
