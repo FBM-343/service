@@ -1,0 +1,64 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "PetAPI",
+    "collectionId": "7244d56f-a0a3-4e6d-8859-2524ccb94116",
+    "dateExported": "2024-05-15T12:28:13.009Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "3c97067a-ecca-4845-ac55-1eaadb0fbdb2",
+            "colId": "7244d56f-a0a3-4e6d-8859-2524ccb94116",
+            "containerId": "",
+            "name": "AllPets",
+            "url": "http://localhost:8080/pets",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-05-15T12:11:26.861Z",
+            "modified": "2024-05-15T12:11:45.300Z",
+            "headers": []
+        },
+        {
+            "_id": "e7c03b54-0b29-435f-ba1c-432beb63fcb1",
+            "colId": "7244d56f-a0a3-4e6d-8859-2524ccb94116",
+            "containerId": "",
+            "name": "GetPet",
+            "url": "http://localhost:8080/pets/66449d7de407876c44c17e3d",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-15T12:13:43.443Z",
+            "modified": "2024-05-15T12:14:04.849Z",
+            "headers": []
+        },
+        {
+            "_id": "e3a8551d-3112-4f36-8073-a9823ea5f206",
+            "colId": "7244d56f-a0a3-4e6d-8859-2524ccb94116",
+            "containerId": "",
+            "name": "UpdatePet",
+            "url": "http://localhost:8080/pets/66449d7de407876c44c17e3d",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-05-15T12:14:30.934Z",
+            "modified": "2024-05-15T12:16:33.121Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"name\": \"Max\",\n  \"species\": \"caine\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "74fedd1d-f560-4058-b05a-a4c47ba79cb2",
+            "colId": "7244d56f-a0a3-4e6d-8859-2524ccb94116",
+            "containerId": "",
+            "name": "DeletePet",
+            "url": "http://localhost:8080/pets/66449d7de407876c44c17e3e",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-05-15T12:17:12.933Z",
+            "modified": "2024-05-15T12:17:36.490Z",
+            "headers": []
+        }
+    ],
+    "ref": "YKXNyJFs6tpRBh4V2Xcrlm8jO3VCHVwT2q9NTT3vQJgEBhBHN6B0vTJdOUChPAb8B7ozxlst9BET7Jaz17qAtA"
+}
